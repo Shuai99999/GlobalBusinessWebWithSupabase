@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  /* 完全移除 scroll-snap，使用原生流畅滚动 */
+  scroll-behavior: smooth;
+  /* 优化滚动性能 */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+body {
+  /* 使用 smooth 滚动，但移除 scroll-snap */
+  scroll-behavior: smooth;
+  /* 优化滚动流畅度 */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
+}
+
+/* 滚动对齐效果 - 移除所有 scroll-snap 属性，保持样式 */
+.snap-section {
+  /* 移除所有 scroll-snap 相关属性 */
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* 最后一个 section */
+.snap-section:last-child,
+.snap-section-last {
+  min-height: 100vh;
+}
+
+/* 页脚样式 */
+.snap-section-footer {
+  /* 移除 scroll-snap 属性 */
+}
+
+/* 移除占位符的空白 */
+.snap-footer-spacer {
+  display: none; /* 完全移除占位符，不需要了 */
+}
+
+/* Hero section 特殊处理，因为它已经有 h-screen */
+.snap-section:first-child > * {
+  min-height: 100vh;
+}
+
+/* 移动端和桌面端都不使用 scroll-snap，完全自由滚动 */
+
+/* 滚动动画优化 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 确保动画在支持的情况下启用 */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-fade-in-up {
+    animation: fadeInUp 0.7s ease-out forwards;
+  }
+  
+  .animate-fade-in-down {
+    animation: fadeInDown 0.7s ease-out forwards;
+  }
+  
+  .animate-fade-in-left {
+    animation: fadeInLeft 0.7s ease-out forwards;
+  }
+  
+  .animate-fade-in-right {
+    animation: fadeInRight 0.7s ease-out forwards;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.7s ease-out forwards;
+  }
+}
+

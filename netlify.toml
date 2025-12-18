@@ -1,0 +1,23 @@
+[build]
+  # 基础目录：设置为 client，这样构建命令就在 client 目录下执行
+  base = "client"
+  # 构建命令：直接执行，因为 base 已经设置为 client 目录
+  command = "npm install && npm run build"
+  # 发布目录：相对于 base 目录，所以是 dist（不是 client/dist）
+  publish = "dist"
+  
+# 构建环境变量
+[build.environment]
+  # 指定 Node.js 版本（推荐使用 18 或 20）
+  NODE_VERSION = "18"
+
+# 重定向规则：支持 React Router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# 环境变量（在 Netlify 控制台中设置）
+# 需要在 Netlify Dashboard → Site settings → Environment variables 中设置：
+# - VITE_API_URL: 后端API地址（例如：https://your-backend.railway.app）
+
