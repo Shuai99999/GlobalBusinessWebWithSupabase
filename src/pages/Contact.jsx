@@ -1,11 +1,19 @@
 import { useState, useRef, useEffect } from 'react'
 import { createClient } from '@supabase/supabase-js'
-import { supabaseConfig } from '../config/supabaseConfig'
 import { useLanguage } from '../context/LanguageContext'
 import { getTranslation } from '../utils/translations'
 
+// 从环境变量获取 Supabase 配置
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+// 验证环境变量
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('Missing Supabase environment variables. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY')
+}
+
 // 初始化 Supabase 客户端
-const supabase = createClient(supabaseConfig.url, supabaseConfig.anonKey)
+const supabase = createClient(supabaseUrl || '', supabaseAnonKey || '')
 
 const Contact = () => {
   const { language } = useLanguage()

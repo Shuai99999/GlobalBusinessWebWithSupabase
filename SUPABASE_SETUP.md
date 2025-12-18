@@ -57,17 +57,27 @@ CREATE POLICY "Allow anonymous insert" ON messages
 
 ## 3. 配置 Supabase 客户端
 
+项目使用环境变量来配置 Supabase，更安全且适合生产环境。
+
+### 方式一：Netlify 环境变量（生产环境）
+
 1. 在 Supabase Dashboard 中，进入 **Project Settings** > **API**
 2. 复制 **Project URL** 和 **anon/public key**
-3. 在项目根目录的 `src/config/` 目录下，复制 `supabaseConfig.js.example` 为 `supabaseConfig.js`
-4. 将复制的 URL 和 key 填入 `supabaseConfig.js`
+3. 在 Netlify Dashboard 中：
+   - 进入 **Site settings** → **Environment variables**
+   - 添加环境变量：
+     - `VITE_SUPABASE_URL` = `https://your-project.supabase.co`
+     - `VITE_SUPABASE_ANON_KEY` = `your-anon-key-here`
 
-```javascript
-export const supabaseConfig = {
-  url: 'https://your-project.supabase.co',  // 替换为你的 Project URL
-  anonKey: 'your-anon-key-here'              // 替换为你的 anon key
-}
-```
+### 方式二：本地开发使用 .env.local
+
+1. 在项目根目录创建 `.env.local` 文件：
+   ```env
+   VITE_SUPABASE_URL=https://your-project.supabase.co
+   VITE_SUPABASE_ANON_KEY=your-anon-key-here
+   ```
+
+2. 重启开发服务器使环境变量生效
 
 ## 4. 验证设置
 

@@ -24,23 +24,27 @@ npm install
 
 ### 配置 Supabase
 
-1. 复制配置文件：
-   ```bash
-   cd src/config
-   cp supabaseConfig.js.example supabaseConfig.js
-   ```
+#### 方式一：使用环境变量（推荐，用于生产环境）
 
-2. 在 Supabase Dashboard 中获取你的项目信息：
+1. 在 Supabase Dashboard 中获取你的项目信息：
    - 进入 **Project Settings** > **API**
    - 复制 **Project URL** 和 **anon/public key**
 
-3. 编辑 `src/config/supabaseConfig.js`，填入你的 Supabase 配置：
-   ```javascript
-   export const supabaseConfig = {
-     url: 'https://your-project.supabase.co',
-     anonKey: 'your-anon-key-here'
-   }
+2. 在 Netlify 中设置环境变量：
+   - 进入 **Site settings** → **Environment variables**
+   - 添加以下环境变量：
+     - `VITE_SUPABASE_URL` = `https://your-project.supabase.co`
+     - `VITE_SUPABASE_ANON_KEY` = `your-anon-key-here`
+
+#### 方式二：本地开发使用 .env.local 文件
+
+1. 在项目根目录创建 `.env.local` 文件：
+   ```env
+   VITE_SUPABASE_URL=https://your-project.supabase.co
+   VITE_SUPABASE_ANON_KEY=your-anon-key-here
    ```
+
+2. 重启开发服务器使环境变量生效
 
 ### 启动开发服务器
 
@@ -95,7 +99,10 @@ npm run build
 
 1. 将项目推送到 GitHub
 2. 在 Netlify 中连接 GitHub 仓库
-3. 构建设置（已在 `netlify.toml` 中配置）：
+3. **重要**：在 Netlify Dashboard 中设置环境变量：
+   - 进入 **Site settings** → **Environment variables**
+   - 添加 `VITE_SUPABASE_URL` 和 `VITE_SUPABASE_ANON_KEY`
+4. 构建设置（已在 `netlify.toml` 中配置）：
    - Build command: `npm install && npm run build`
    - Publish directory: `dist`
 
@@ -106,12 +113,13 @@ npm run build
 
 ## 安全说明
 
-⚠️ **重要**：`src/config/supabaseConfig.js` 文件包含敏感信息，已被添加到 `.gitignore`，不会被提交到 GitHub。
+⚠️ **重要**：Supabase 配置信息包含敏感数据，请妥善保管。
 
-请确保：
-1. 不要将 `supabaseConfig.js` 提交到版本控制
-2. 使用 `supabaseConfig.js.example` 作为模板
-3. 在生产环境中，可以考虑使用环境变量来存储 Supabase 配置
+**安全提示**：
+1. ✅ 使用环境变量存储配置（推荐方式）
+2. ✅ `.env.local` 文件已被添加到 `.gitignore`，不会被提交到 GitHub
+3. ⚠️ 不要在代码中硬编码 Supabase URL 和 Key
+4. ⚠️ 不要将包含真实配置的文件提交到版本控制
 
 ## 迁移说明
 
