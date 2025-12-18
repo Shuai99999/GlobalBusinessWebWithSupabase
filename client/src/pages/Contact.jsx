@@ -1,7 +1,11 @@
 import { useState, useRef, useEffect } from 'react'
-import { API_ENDPOINTS } from '../config/api'
+import { createClient } from '@supabase/supabase-js'
+import { supabaseConfig } from '../config/supabaseConfig'
 import { useLanguage } from '../context/LanguageContext'
 import { getTranslation } from '../utils/translations'
+
+// 初始化 Supabase 客户端
+const supabase = createClient(supabaseConfig.url, supabaseConfig.anonKey)
 
 const Contact = () => {
   const { language } = useLanguage()
@@ -66,26 +70,43 @@ const Contact = () => {
       return
     }
     
+    // 验证必填字段
+    if (!formData.name || !formData.email || !formData.message) {
+      setSubmitStatus({ type: 'error', message: getTranslation(language, 'pages.contact.form.error') })
+      return
+    }
+    
     setIsSubmitting(true)
     isSubmittingRef.current = true
     setSubmitStatus(null)
 
     try {
-      const response = await fetch(API_ENDPOINTS.CONTACT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
+      // 准备数据
+      const trimmedEmail = formData.email.trim().toLowerCase()
+      const trimmedMessage = formData.message.trim()
 
-      const data = await response.json()
+      // 插入新留言到 Supabase
+      // 注意：不使用 .select() 避免需要查询权限
+      const { error } = await supabase
+        .from('messages')
+        .insert([
+          {
+            name: formData.name.trim(),
+            email: trimmedEmail,
+            phone: formData.phone ? formData.phone.trim() : '',
+            message: trimmedMessage
+          }
+        ])
 
-      if (data.success) {
+      if (error) {
+        console.error('Error saving message:', error)
+        setSubmitStatus({ 
+          type: 'error', 
+          message: error.message || getTranslation(language, 'pages.contact.form.error') 
+        })
+      } else {
         setSubmitStatus({ type: 'success', message: getTranslation(language, 'pages.contact.form.success') })
         setFormData({ name: '', email: '', phone: '', message: '' })
-      } else {
-        setSubmitStatus({ type: 'error', message: data.error || getTranslation(language, 'pages.contact.form.error') })
       }
     } catch (error) {
       console.error('Error submitting form:', error)

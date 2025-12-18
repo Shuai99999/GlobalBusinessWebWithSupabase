@@ -22,6 +22,9 @@ server/messages/*.txt
 server/.env
 .env
 
+# Supabase Config (包含敏感信息)
+client/src/config/supabaseConfig.js
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

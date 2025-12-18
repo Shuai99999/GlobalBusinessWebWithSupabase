@@ -1,0 +1,19 @@
+// Supabase 配置示例文件
+// 复制此文件为 supabaseConfig.js 并填入你的 Supabase 项目信息
+// supabaseConfig.js 已被添加到 .gitignore，不会被提交到 GitHub
+
+export const supabaseConfig = {
+  // 从 Supabase 项目设置中获取
+  // Project Settings > API > Project URL
+  url: 'https://your-project.supabase.co',
+  
+  // 从 Supabase 项目设置中获取
+  // Project Settings > API > Project API keys > anon/public key
+  anonKey: 'your-anon-key-here'
+}
+
+// 使用方式：
+// import { createClient } from '@supabase/supabase-js'
+// import { supabaseConfig } from './config/supabaseConfig'
+// const supabase = createClient(supabaseConfig.url, supabaseConfig.anonKey)
+
