@@ -32,7 +32,7 @@
    - 复制 **anon/public key**
 
 2. 在项目中：
-   - 打开 `client/src/config/supabaseConfig.js`
+   - 打开 `src/config/supabaseConfig.js`
    - 将复制的 URL 和 key 填入配置
 
 ```javascript
@@ -54,9 +54,9 @@ export const supabaseConfig = {
 
 ## 🔒 安全注意事项
 
-- ✅ `supabaseConfig.js` 已添加到 `.gitignore`
+- ✅ `src/config/supabaseConfig.js` 已添加到 `.gitignore`
 - ⚠️ 确保不要将包含真实配置的 `supabaseConfig.js` 提交到 GitHub
-- 💡 使用 `supabaseConfig.js.example` 作为模板
+- 💡 使用 `src/config/supabaseConfig.js.example` 作为模板
 
 ## 🗑️ 可选：清理旧代码
 

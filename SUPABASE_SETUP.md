@@ -59,7 +59,7 @@ CREATE POLICY "Allow anonymous insert" ON messages
 
 1. 在 Supabase Dashboard 中，进入 **Project Settings** > **API**
 2. 复制 **Project URL** 和 **anon/public key**
-3. 在项目根目录的 `client/src/config/` 目录下，复制 `supabaseConfig.js.example` 为 `supabaseConfig.js`
+3. 在项目根目录的 `src/config/` 目录下，复制 `supabaseConfig.js.example` 为 `supabaseConfig.js`
 4. 将复制的 URL 和 key 填入 `supabaseConfig.js`
 
 ```javascript

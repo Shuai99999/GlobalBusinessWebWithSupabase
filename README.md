@@ -18,15 +18,15 @@
 ### 安装依赖
 
 ```bash
-# 安装前端依赖
-cd client && npm install
+# 安装依赖
+npm install
 ```
 
 ### 配置 Supabase
 
 1. 复制配置文件：
    ```bash
-   cd client/src/config
+   cd src/config
    cp supabaseConfig.js.example supabaseConfig.js
    ```
 
@@ -34,7 +34,7 @@ cd client && npm install
    - 进入 **Project Settings** > **API**
    - 复制 **Project URL** 和 **anon/public key**
 
-3. 编辑 `client/src/config/supabaseConfig.js`，填入你的 Supabase 配置：
+3. 编辑 `src/config/supabaseConfig.js`，填入你的 Supabase 配置：
    ```javascript
    export const supabaseConfig = {
      url: 'https://your-project.supabase.co',
@@ -45,8 +45,8 @@ cd client && npm install
 ### 启动开发服务器
 
 ```bash
-# 前端 (http://localhost:5173)
-cd client && npm run dev
+# 启动开发服务器 (http://localhost:5173)
+npm run dev
 ```
 
 **注意**：不再需要启动后端服务器，所有数据操作都通过 Supabase 完成。
@@ -54,20 +54,23 @@ cd client && npm run dev
 ### 构建生产版本
 
 ```bash
-cd client && npm run build
+npm run build
 ```
 
 ## 项目结构
 
 ```
-├── client/                    # 前端应用
-│   ├── src/
-│   │   ├── config/
-│   │   │   ├── supabaseConfig.js      # Supabase 配置（不提交到 Git）
-│   │   │   └── supabaseConfig.js.example  # 配置示例文件
-│   │   └── pages/
-│   │       └── Contact.jsx    # 联系页面（使用 Supabase）
+├── src/                       # 源代码目录
+│   ├── config/
+│   │   ├── supabaseConfig.js      # Supabase 配置（不提交到 Git）
+│   │   └── supabaseConfig.js.example  # 配置示例文件
+│   ├── pages/
+│   │   └── Contact.jsx        # 联系页面（使用 Supabase）
+│   ├── components/            # React 组件
+│   ├── context/               # React Context
+│   ├── hooks/                 # 自定义 Hooks
 │   └── ...
+├── public/                    # 静态资源
 ├── server/                    # ⚠️ 已废弃：原 Express 后端（保留用于参考）
 └── SUPABASE_SETUP.md          # Supabase 数据库设置指南
 ```
@@ -92,9 +95,9 @@ cd client && npm run build
 
 1. 将项目推送到 GitHub
 2. 在 Netlify 中连接 GitHub 仓库
-3. 构建设置：
-   - Build command: `cd client && npm run build`
-   - Publish directory: `client/dist`
+3. 构建设置（已在 `netlify.toml` 中配置）：
+   - Build command: `npm install && npm run build`
+   - Publish directory: `dist`
 
 ### 后端（Supabase）
 
@@ -103,7 +106,7 @@ cd client && npm run build
 
 ## 安全说明
 
-⚠️ **重要**：`client/src/config/supabaseConfig.js` 文件包含敏感信息，已被添加到 `.gitignore`，不会被提交到 GitHub。
+⚠️ **重要**：`src/config/supabaseConfig.js` 文件包含敏感信息，已被添加到 `.gitignore`，不会被提交到 GitHub。
 
 请确保：
 1. 不要将 `supabaseConfig.js` 提交到版本控制

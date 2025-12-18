@@ -7,23 +7,22 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Node modules and build outputs
 node_modules
 dist
 dist-ssr
 *.local
 
-# Client
-client/node_modules
-client/dist
-
-# Server
+# Server (已废弃，保留用于参考)
 server/node_modules
 server/messages/*.txt
 server/.env
+
+# Environment variables
 .env
 
 # Supabase Config (包含敏感信息)
-client/src/config/supabaseConfig.js
+src/config/supabaseConfig.js
 
 # Editor directories and files
 .vscode/*
@@ -35,5 +34,3 @@ client/src/config/supabaseConfig.js
 *.njsproj
 *.sln
 *.sw?
-
-
